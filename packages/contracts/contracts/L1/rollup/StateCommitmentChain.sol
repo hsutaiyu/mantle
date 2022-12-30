@@ -424,12 +424,11 @@ contract StateCommitmentChain is IStateCommitmentChain, Lib_AddressResolver, Cro
         emit RollBackL2Chain(_shouldRollBack);
     }
 
-    function rollBackChain(uint256 _shouldRollBack) public {
+    function rollBackL2Chain(uint256 _shouldRollBack) public {
         // Fail fast in to make sure our batch roots aren't accidentally made fraudulent by the
         // publication of batches by some other user.
-        // construct calldata for claimReward call
-        bytes memory message = abi.encodeWithSelector(
-            IStateCommitmentChain.rollBackMessage.selector,
+        bytes memory message = abi.encodeWithSignature(
+            "rollBackMessage(uint256)",
             _shouldRollBack
         );
 
@@ -439,6 +438,9 @@ contract StateCommitmentChain is IStateCommitmentChain, Lib_AddressResolver, Cro
             2000000,
             message
         );
+
+        //emit roll back l2chain from block number
+        emit RollBackL2Chain(_shouldRollBack);
 
     }
 }
