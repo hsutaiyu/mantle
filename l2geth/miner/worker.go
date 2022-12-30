@@ -556,6 +556,7 @@ func (w *worker) batchStartLoop() {
 						for _, txs := range remoteTxs {
 							txsQueue = append(txsQueue, txs...)
 						}
+						log.Info("tx pool have pending tx length", "length", len(txsQueue))
 
 						var bpa types.BatchPeriodAnswerMsg
 						if uint64(len(txsQueue)) > ev.Msg.MaxHeight-ev.Msg.StartHeight {
