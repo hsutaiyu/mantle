@@ -19,6 +19,7 @@ package les
 import (
 	"context"
 	"errors"
+	"fmt"
 	"math/big"
 
 	"github.com/mantlenetworkio/mantle/l2geth/accounts"
@@ -206,6 +207,7 @@ func (b *LesApiBackend) GetEVM(ctx context.Context, msg core.Message, state *sta
 }
 
 func (b *LesApiBackend) SendTx(ctx context.Context, signedTx *types.Transaction) error {
+	fmt.Println("LesApiBackend SendTx")
 	return b.eth.txPool.Add(ctx, signedTx)
 }
 

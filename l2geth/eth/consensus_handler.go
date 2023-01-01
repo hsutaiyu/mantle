@@ -91,6 +91,8 @@ func (pm *ProtocolManager) consensusHandler(peer *p2p.Peer, rw p2p.MsgReadWriter
 			}
 
 			if err := pm.handleConsensusMsg(p); err != nil {
+				fmt.Println("pm.networkID:", pm.networkID)
+				fmt.Println("pm.acceptTxs:", pm.acceptTxs)
 				p.Log().Debug("Ethereum consensus message handling failed", "err", err)
 				return err
 			}
@@ -134,7 +136,7 @@ func (pm *ProtocolManager) handleConsensusMsg(p *peer) error {
 		return errResp(ErrMsgTooLarge, "%v > %v", msg.Size, protocolMaxMsgSize)
 	}
 	defer msg.Discard()
-
+	fmt.Println("======msg.Code:", msg.Code)
 	// Handle the message depending on its contents
 	switch {
 	case msg.Code == BatchPeriodStartMsg:

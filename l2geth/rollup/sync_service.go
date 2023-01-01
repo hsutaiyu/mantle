@@ -1162,7 +1162,9 @@ func (s *SyncService) ValidateSequencerTransaction(tx *types.Transaction, sequen
 		return err
 	}
 	log.Trace("Sequencer transaction validation", "hash", tx.Hash().Hex())
-
+	fmt.Println("ValidateSequencerTransaction block Number", "number", s.bc.CurrentBlock().Number())
+	pendings, _ := s.txpool.Pending()
+	fmt.Println("ValidateSequencerTransaction pending txs", "number", len(pendings))
 	qo := tx.QueueOrigin()
 	if qo != types.QueueOriginSequencer {
 		return fmt.Errorf("invalid transaction with queue origin %s", qo.String())
